@@ -4,22 +4,9 @@ import sys
 from pygame.locals import *
 from player import Player
 from platforms import Platforms
+# NEW FOLLOWS **********************
 from sprite_loader import *
-
-pygame.init()
-screen_info = pygame.display.Info()
-
-# set the width and height to the size of the screen
-size = (width, height) = (screen_info.current_w, screen_info.current_h)
-font = pygame.font.SysFont(None, 70)
-screen = pygame.display.set_mode(size)
-clock = pygame.time.Clock()
-color = (255, 224, 179)
-
-sprite_list = pygame.sprite.Group()
-platforms = pygame.sprite.Group()
-player = ''
-
+# NEW ABOVE ***********************
 
 def get_player_actions():
     p1_sheet = SpriteSheet('images/p1_spritesheet.png')
@@ -41,6 +28,24 @@ def init(p1_actions):
     player = Player((platforms.sprites()[-1].rect.centerx, platforms.sprites()[-1].rect.centery-300), p1_actions)
     sprite_list.add(player)
 
+pygame.init()
+screen_info = pygame.display.Info()
+# set the width and height to the size of the screen
+size = (width, height) = (screen_info.current_w, screen_info.current_h)
+font = pygame.font.SysFont(None, 70)
+screen = pygame.display.set_mode(size)
+clock = pygame.time.Clock()
+color = (255, 224, 179)
+sprite_list = pygame.sprite.Group()
+platforms = pygame.sprite.Group()
+
+# New Follows ******************************
+player = ''
+# NEW ABOVE *********************************
+
+
+
+
 
 def main():
     global player
@@ -59,11 +64,13 @@ def main():
                     pygame.display.set_mode(size, FULLSCREEN)
                 if event.key == K_ESCAPE:
                     pygame.display.set_mode(size)
+                # NEW FOLLOWS ****************************************
                 # reset the game if it is over by pressing 'R'
                 if game_over and event.key == K_r:
                     player.kill()
                     init(p1_actions)
                     game_over = False
+                # NEW ABOVE *********************************************
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             player.left()

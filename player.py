@@ -12,11 +12,14 @@ class Player(pygame.sprite.Sprite):
         # index 0 represents dx, index 1 represents dy
         self.xy_speed = pygame.math.Vector2(0, 0)
         self.facing = "R"
-        self.jump_speed = -14
+        self.jump_speed = -24  # I changed this
+        # NEW FOLLOWS ***************************************
         self.world_y = 0
         self.progress = 0
+        # NEW ABOVE ******************************************
 
     def update(self, platforms):
+    # NEW FOLLOWS **********************************************
         screen_info = pygame.display.Info()
 
         # update the image and direction
@@ -24,6 +27,7 @@ class Player(pygame.sprite.Sprite):
             self.image = self.images['p1_hurt']
         else:
             self.image = self.images['p1_jump']
+    # NEW ABOVE *************************************************
         if self.facing == "L":
             self.image = pygame.transform.flip(self.image, True, False)
         # move the player
@@ -37,8 +41,9 @@ class Player(pygame.sprite.Sprite):
         elif self.rect.left > screen_info.current_w:
             self.rect.right = 0
         # handle vertical movement
-        if self.world_y > self.progress:
-            self.progress = self.world_y
+        self.world_y += self.xy_speed[1] * -1
+        # if self.world_y > self.progress:
+          #  self.progress = self.world_y
         # scroll platforms down
         if self.rect.top < 100:
             self.rect.top = 100
@@ -46,7 +51,6 @@ class Player(pygame.sprite.Sprite):
                 plat.scroll(-1*self.xy_speed[1])
         # scroll platforms up (player fell off world)
         elif self.rect.top > screen_info.current_h-80:
-
             self.rect.top = screen_info.current_h-80
             for plat in platforms.sprites():
                 if plat.rect.bottom > 0:
@@ -60,10 +64,11 @@ class Player(pygame.sprite.Sprite):
         for plat in hit_list:
             # player landed on top of a platform
             if self.xy_speed[1] > 0 and abs(self.rect.bottom - plat.rect.top) <= self.xy_speed[1]:
+                self.progress += 1
                 self.rect.bottom = plat.rect.top
                 self.xy_speed[1] = self.jump_speed
         # gravity
-        self.xy_speed[1] += .5
+        self.xy_speed[1] += .3  # I changed this
 
     def left(self):
         self.facing = 'L'
