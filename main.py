@@ -8,9 +8,12 @@ from platforms import Platforms
 from sprite_loader import *
 # NEW ABOVE ***********************
 
+
 def get_player_actions():
+    # CHANGED FOLLOWS ************************************
     p1_sheet = SpriteSheet('images/p1_spritesheet.png')
     p1_file = open('images/p1_spritesheet.txt', 'r')
+    # CHANGED ABOVE *************************************
     p1_actions = {}
     # create a dictionary of all player images
     for line in p1_file:
@@ -28,6 +31,7 @@ def init(p1_actions):
     player = Player((platforms.sprites()[-1].rect.centerx, platforms.sprites()[-1].rect.centery-300), p1_actions)
     sprite_list.add(player)
 
+
 pygame.init()
 screen_info = pygame.display.Info()
 # set the width and height to the size of the screen
@@ -38,13 +42,6 @@ clock = pygame.time.Clock()
 color = (255, 224, 179)
 sprite_list = pygame.sprite.Group()
 platforms = pygame.sprite.Group()
-
-# New Follows ******************************
-player = ''
-# NEW ABOVE *********************************
-
-
-
 
 
 def main():

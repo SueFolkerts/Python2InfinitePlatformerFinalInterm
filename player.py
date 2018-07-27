@@ -4,7 +4,7 @@ import pygame
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, pos, images):
-        super().__init__()
+        super(Player, self).__init__()
         self.images = images
         self.image = images['p1_jump']
         self.rect = self.image.get_rect()
@@ -13,10 +13,8 @@ class Player(pygame.sprite.Sprite):
         self.xy_speed = pygame.math.Vector2(0, 0)
         self.facing = "R"
         self.jump_speed = -24  # I changed this
-        # NEW FOLLOWS ***************************************
         self.world_y = 0
         self.progress = 0
-        # NEW ABOVE ******************************************
 
     def update(self, platforms):
     # NEW FOLLOWS **********************************************
